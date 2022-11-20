@@ -1,9 +1,12 @@
+# Tulli's script :-)
 from brownie import config
 import requests, os, typing as tp
 
 
 PINATA_BASE_URL = "https://api.pinata.cloud/"
 endpoint = "pinning/pinFileToIPFS"
+# Here you could use os.getenv("VARIABLE_NAME"),
+# i used config from my .yaml file. Your choice!
 headers = {
     "pinata_api_key": config["pinata"]["api-keys"],
     "pinata_secret_api_key": config["pinata"]["api-private"],
@@ -21,6 +24,12 @@ def get_all_files(directory: str) -> tp.List[str]:
 
 def upload_folder_to_pinata(filepath):
     all_files: tp.List[str] = get_all_files(filepath)
+    # The replace function is a must, 
+    # pinata servers doesn't recognize the backslash. 
+    # Your filepath is probably different than mine,
+    # so in the split function put your "penultimate_file/".
+    # Strip the square brackets and the apostrophe,
+    # because we don't want it as part of the metadata ipfs name
     files = [
         (
             "file",

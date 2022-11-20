@@ -52,6 +52,8 @@ def upload_folder_to_pinata(filepath):
         + str(response.json()["IpfsHash"])
         + "/"
     )
+    # If you want to see all the stats then do this: 
+    # return/print/do both separately response.json()
     return "https://ipfs.io/ipfs/" + response.json()["IpfsHash"] + "/"
 
 
